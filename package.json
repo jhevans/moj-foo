@@ -6,15 +6,21 @@
   "author": "John Evans <john.evans@digital.justice.gov.uk>",
   "license": "MIT",
   "private": true,
-  "type": "module",
+  "nodemonConfig": {
+    "ignore": ["dist/*"]
+  },
   "scripts": {
-    "start": "node index.js",
-    "start:watch": "nodemon index.js"
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "start": "npm run build && node dist/index.js",
+    "start:watch": "nodemon --exec npm start"
   },
   "dependencies": {
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "nodemon": "^2.0.2",
+    "rimraf": "^3.0.0"
   }
 }
